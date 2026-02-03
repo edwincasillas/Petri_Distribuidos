@@ -13,6 +13,7 @@ def main():
 
     # Punto 1
     bef = generate_sets.generate_bef(lambda_, START_SYMBOL, END_SYMBOL)
+    print("BEF")
     print(bef)
 
     # Punto 2
@@ -20,12 +21,14 @@ def main():
 
     # Punto 3
     po, conc = generate_sets.generate_po(bef, START_SYMBOL, END_SYMBOL)
-    print(po)
-    print(conc)
+    print("PO")
+    print("PO: ", po)
+    print("Conc: ",conc)
     make_graphs.dibujar_grafo_precedencia(po, START_SYMBOL, END_SYMBOL, "grafo de PO")
 
     # Punto 4
     q, sigma, delta, q0, f = generate_sets.generate_afn(bef, START_SYMBOL, END_SYMBOL)
+    print("AFN")
     print("q: ", q)
     print("sigma: ", sigma)
     print("delta: ", delta)
@@ -34,6 +37,7 @@ def main():
     make_graphs.dibujar_afn(q, sigma, delta, q0, f)
 
     q, delta = generate_sets.zip_afn(q, sigma, delta, q0, f)
+    print("AFN compacto")
     print("q: ", q)
     print("sigma: ", sigma)
     print("delta: ", delta)
