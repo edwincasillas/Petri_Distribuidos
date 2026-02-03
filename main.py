@@ -26,12 +26,12 @@ def main():
 
     # Punto 4
     q, sigma, delta, q0, f = generate_sets.generate_afn(bef, START_SYMBOL, END_SYMBOL)
-    print(q)
-    print(sigma)
-    print(delta)
-    print(q0)
-    print(f)
-    #make_graphs.dibujar_grafo_precedencia(po, START_SYMBOL, END_SYMBOL, "grafo de PO")
+    print("q: ", q)
+    print("sigma: ",sigma)
+    print("delta: ",delta)
+    print("q0: ",q0)
+    print("f: ",f)
+    make_graphs.dibuja_afn_simple(q, sigma, delta, q0, f)
 
 if __name__ == "__main__":
     main()

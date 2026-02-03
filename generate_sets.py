@@ -69,8 +69,19 @@ def generate_afn(bef, start_symbol, end_symbol):
     f.add(end_symbol)
     q.add(end_symbol)
     delta[end_symbol] = {}
+
+    # Eliminar transicion epsilon inutil
+    new_bef = set()
+    finals = []
+    for ((a, b), c) in bef:
+        if b == end_symbol:
+            finals.append(f"({a}, {c})")
+        else:
+            new_bef.add(((a, b), c))
+    bef = new_bef
+    print(finals)
     
-    # Agregar transicion con consumo de simmbolo
+    # Agregar transicion con consumo de simbolo
     for (a, b), trace in bef:
         symbol = b
         sigma.add(symbol)
@@ -82,10 +93,9 @@ def generate_afn(bef, start_symbol, end_symbol):
             origin = f"({a}, {trace})"
         
         # Determinar estado destino
-        if b == end_symbol:
+        dest = f"({b}, {trace})"
+        if dest in finals:
             dest = end_symbol
-        else:
-            dest = f"({b}, {trace})"
         
         # Agregar estados a Q
         q.add(origin)
