@@ -79,7 +79,6 @@ def generate_afn(bef, start_symbol, end_symbol):
         else:
             new_bef.add(((a, b), c))
     bef = new_bef
-    print(finals)
     
     # Agregar transicion con consumo de simbolo
     for (a, b), trace in bef:
@@ -114,3 +113,47 @@ def generate_afn(bef, start_symbol, end_symbol):
         delta[origin][symbol].add(dest)
     
     return q, sigma, delta, q0, f
+
+def zip_afn(q, sigma, delta, q0, f):
+    # Encontrar prefijos comunes
+    prefixes = ['START']
+    new_states = {}
+    while prefixes:
+        for p in prefixes:
+            for symbol, states in delta[p].items():
+                if len(states) > 1:
+                    new = {}
+                    for state in states:
+                        n = delta.pop(state)
+                        for clave, valor in n.items():
+                            if clave in new:
+                                new[clave].update(valor)
+                            else:
+                                new[clave] = valor
+                    new_states[symbol] = states
+                    prefixes.append(symbol)
+                    delta[symbol] = new
+                    delta[p][symbol] = set(symbol)
+            prefixes.remove(p)
+    # Encontrar sufijos comunes
+    """ print(delta)
+    sufixes = []
+    for key, transitions in delta.items():
+        for value in transitions.values():
+            if isinstance(value, (dict, set, list)):
+                if 'END' in str(value):
+                    sufixes.append(key)
+            elif value == 'END':
+                sufixes.append(key)
+    print(sufixes)
+    for p in sufixes:
+        if len(delta[p]) == 1:
+            new_state = p.strip('()').split(',')[0].strip()
+            n = delta.pop(p)
+            if new_state in new:
+                new[new_state].update(n)
+            else:
+                new[new_state] = n
+        sufixes.remove(p) """
+
+    return set(delta.keys()), delta

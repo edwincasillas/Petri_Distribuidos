@@ -27,11 +27,19 @@ def main():
     # Punto 4
     q, sigma, delta, q0, f = generate_sets.generate_afn(bef, START_SYMBOL, END_SYMBOL)
     print("q: ", q)
-    print("sigma: ",sigma)
-    print("delta: ",delta)
-    print("q0: ",q0)
-    print("f: ",f)
+    print("sigma: ", sigma)
+    print("delta: ", delta)
+    print("q0: ", q0)
+    print("f: ", f)
     make_graphs.dibujar_afn(q, sigma, delta, q0, f)
+
+    q, delta = generate_sets.zip_afn(q, sigma, delta, q0, f)
+    print("q: ", q)
+    print("sigma: ", sigma)
+    print("delta: ", delta)
+    print("q0: ", q0)
+    print("f: ", f)
+    make_graphs.dibujar_afn(q, sigma, delta, q0, f, "AFN compacto")
 
 if __name__ == "__main__":
     main()
