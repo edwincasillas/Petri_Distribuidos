@@ -55,3 +55,52 @@ def generate_po(bef, start_symbol, end_symbol):
             po.add(events)
     
     return po, conc
+
+def generate_afn(bef, start_symbol, end_symbol):
+    q = set()
+    sigma = set()
+    delta = {}
+    q0 = start_symbol
+    f = set()
+
+    q.add(q0)
+    delta[q0] = {}
+    
+    f.add(end_symbol)
+    q.add(end_symbol)
+    delta[end_symbol] = {}
+    
+    # Agregar transicion con consumo de simmbolo
+    for (a, b), trace in bef:
+        symbol = b
+        sigma.add(symbol)
+        
+        # Determinar estado inicial
+        if a == start_symbol:
+            origin = a
+        else:
+            origin = f"({a}, {trace})"
+        
+        # Determinar estado destino
+        if b == end_symbol:
+            dest = end_symbol
+        else:
+            dest = f"({b}, {trace})"
+        
+        # Agregar estados a Q
+        q.add(origin)
+        q.add(dest)
+        
+        # Inicializar transiciones para origen
+        if origin not in delta:
+            delta[origin] = {}
+        # Inicializar transiciones para destino
+        if dest not in delta:
+            delta[dest] = {}
+        
+        # Agregar transición no determinista
+        if symbol not in delta[origin]:
+            delta[origin][symbol] = set()
+        delta[origin][symbol].add(dest)
+    
+    return q, sigma, delta, q0, f
