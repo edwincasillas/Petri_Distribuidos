@@ -31,7 +31,7 @@ def main():
     print("delta: ",delta)
     print("q0: ",q0)
     print("f: ",f)
-    make_graphs.dibuja_afn_simple(q, sigma, delta, q0, f)
+    make_graphs.dibujar_afn(q, sigma, delta, q0, f)
 
 if __name__ == "__main__":
     main()

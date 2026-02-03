@@ -49,7 +49,7 @@ def dibujar_grafo_precedencia(bef, start_symbol, end_symbol, imagen="Grafo de Pr
     dot.render(imagen, view=True, format='png', directory=output_directory, cleanup=True)
     print(f"Grafo guardado en '{output_directory}'!")
 
-def dibuja_afn_simple(q, sigma, delta, q0, f, imagen="AFN"):
+def dibujar_afn(q, sigma, delta, q0, f, imagen="AFN"):
     directorio()
 
     dot = graphviz.Digraph('AFN',
@@ -87,3 +87,4 @@ def dibuja_afn_simple(q, sigma, delta, q0, f, imagen="AFN"):
     
     dot.render(imagen, view=True, format='png', directory=output_directory, cleanup=True)
     print(f"AFN guardado en '{output_directory}'!")
+
